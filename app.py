@@ -105,7 +105,7 @@ def home():
   # -----------------------------
 
   cursor.execute(
-    "SELECT COUNT(*) FROM student_task"
+    "SELECT COUNT(*) FROM student_tasks"
  )
  
   total_assignments = cursor.fetchone()[0]
@@ -475,7 +475,7 @@ def assign_task():
     
     # SQL insert query
     query = """
-      INSERT INTO student_task
+      INSERT INTO student_tasks
       (
         student_id,
         task_id,
@@ -504,7 +504,7 @@ def assign_task():
     connection.commit()
 
     # Redirect page
-    return redirect('/student_task')
+    return redirect('/student_tasks')
 
   # Fetch students
   cursor.execute("""
@@ -536,8 +536,8 @@ def assign_task():
   )
 
 # Student task report
-@app.route('/student_task')
-def student_task():
+@app.route('/student_tasks')
+def student_tasks():
 
   # Check user login
   if 'user_id' not in session:
@@ -553,11 +553,11 @@ def student_task():
   query = """
     SELECT
 
-      student_task.student_task_id,
-      student_task.submission_status,
-      student_task.obtained_marks,
-      student_task.submission_date,
-      student_task.remarks,
+      student_tasks.student_tasks_id,
+      student_tasks.submission_status,
+      student_tasks.obtained_marks,
+      student_tasks.submission_date,
+      student_tasks.remarks,
 
       students.first_name,
       students.last_name,
@@ -565,15 +565,15 @@ def student_task():
       tasks.task_name,
       tasks.maximum_marks
 
-    FROM student_task
+    FROM student_tasks
 
     INNER JOIN students
-       ON student_task.student_id = students.student_id
+       ON student_tasks.student_id = students.student_id
 
     INNER JOIN tasks
-        ON student_task.task_id = tasks.task_id
+        ON student_tasks.task_id = tasks.task_id
 
-    ORDER BY student_task.student_task_id DESC
+    ORDER BY student_tasks.student_tasks_id DESC
   """
 
   # Execute query
@@ -588,7 +588,7 @@ def student_task():
    
   # Load page
   return render_template(
-    'student_task.html',
+    'student_tasks.html',
     task_records=task_records
   )
 
@@ -685,18 +685,18 @@ def performance_report():
       students.last_name,
       students.course_name,
 
-      COUNT(student_task.student_task_id)
+      COUNT(student_tasks.student_tasks_id)
         AS total_tasks,
 
-      SUM(student_task.obtained_marks)
+      SUM(student_tasks.obtained_marks)
         AS total_marks,
 
-      AVG(student_task.obtained_marks)
+      AVG(student_tasks.obtained_marks)
         AS average_marks,
 
       SUM(
         CASE
-          WHEN student_task.submission_status = 'Submitted'
+          WHEN student_tasks.submission_status = 'Submitted'
           THEN 1
           ELSE 0
         END
@@ -704,8 +704,8 @@ def performance_report():
 
     FROM students
 
-    LEFT JOIN student_task
-      ON students.student_id = student_task.student_id
+    LEFT JOIN student_tasks
+      ON students.student_id = student_tasks.student_id
 
     GROUP BY
       students.student_id,
