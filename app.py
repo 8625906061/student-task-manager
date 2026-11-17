@@ -573,7 +573,7 @@ def student_tasks():
     INNER JOIN tasks
         ON student_tasks.task_id = tasks.task_id
 
-    ORDER BY student_tasks.student_tasks_id DESC
+    ORDER BY student_tasks.student_task_id DESC
   """
 
   # Execute query
