@@ -553,7 +553,7 @@ def student_tasks():
   query = """
     SELECT
 
-      student_tasks.student_tasks_id,
+      student_tasks.student_task_id,
       student_tasks.submission_status,
       student_tasks.obtained_marks,
       student_tasks.submission_date,
@@ -685,7 +685,7 @@ def performance_report():
       students.last_name,
       students.course_name,
 
-      COUNT(student_tasks.student_tasks_id)
+      COUNT(student_tasks.student_task_id)
         AS total_tasks,
 
       SUM(student_tasks.obtained_marks)
