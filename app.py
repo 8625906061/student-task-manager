@@ -588,7 +588,7 @@ def student_tasks():
    
   # Load page
   return render_template(
-    'student_tasks.html',
+    'student_task.html',
     task_records=task_records
   )
 
