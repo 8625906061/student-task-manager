@@ -54,22 +54,7 @@
         </div>
 
 
-        <div class="navbar-nav ms-auto align-items-center">
-            <img src="{{ url_for('static', filename='images/profile.jpeg') }}"
-     alt="Profile Photo">
-                 class="rounded-circle"
-                 width="45"
-                 height="45"
-                 style="object-fit: cover;">
-
-            <a class="nav-link text-warning" href="/logout">
-
-                Logout
-
-            </a>
-
-        </div>
-
+        
     </div>
 
 </nav><a class="nav-link" href="/assign_task">
@@ -85,7 +70,20 @@
             </a>
 
         </div>
+<div class="navbar-nav ms-auto align-items-center">
 
+    <img src="{{ url_for('static', filename='images/profile.jpeg') }}"
+         alt="Profile Photo"
+         class="rounded-circle"
+         width="45"
+         height="45"
+         style="object-fit: cover;">
+
+    <a class="nav-link text-warning" href="/logout">
+        Logout
+    </a>
+
+</div>
 
         <div class="navbar-nav ms-auto">
 
